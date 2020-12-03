@@ -1,69 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
-class Login extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _email, _password;
+  String _email, _password, _name;
 
-  Future<void> checkAuthentification() async
-  {
+  Future<void> checkAuthentification() async {
     _auth.onAuthStateChanged.listen((FirebaseUser user) {
-      if(user != null)
+      if (user != null)
         {
           Navigator.of(context).pushNamed('/HomePage');
         }
     });
   }
 
-  Future<void> login() async
-  {
+  @override
+  void initState(){
+    super.initState();
+    checkAuthentification();
+  }
+
+  Future<void> signUp() async {
     if (_formKey.currentState.validate())
       {
         _formKey.currentState.save();
 
         try {
-          final AuthResult res = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
-          final FirebaseUser user = res.user;
-
-          assert (user != null);
-          assert (await user.getIdToken() != null);
-
-          final FirebaseUser currentUser = await _auth.currentUser();
-          assert(user.uid == currentUser.uid);
+          final AuthResult res = await _auth.createUserWithEmailAndPassword(email: _email, password: _password);
+          if (res.user != null)
+          {
+            final UserUpdateInfo updateuser = UserUpdateInfo();
+            updateuser.displayName = _name;
+            res.user.updateProfile(updateuser);
+          }
         }
         catch(e) {
-          showError("Couldn't log in.");
+          debugPrint('error');
         }
       }
-  }
-
-  void showError(String errormessage) {
-    showDialog<Widget>(
-        context: context,
-        builder: (BuildContext context)
-    {
-      return AlertDialog(
-        title: const Text('ERROR'),
-        content: Text(errormessage),
-
-        actions: <Widget>[
-          FlatButton(
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK')
-          )
-        ],
-      );
+    else {
+      debugPrint('error2');
     }
-    );
   }
 
   @override
@@ -101,6 +87,20 @@ class _LoginState extends State<Login> {
                         child: TextFormField(
                           validator: (String input){
                             if (input.isEmpty)
+                              return 'Enter Username';
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                              labelText: 'Username',
+                              prefixIcon: Icon(Icons.person)
+                          ),
+                          onSaved: (String input) => _name = input,
+                        ),
+                      ),
+                      Container(
+                        child: TextFormField(
+                          validator: (String input){
+                            if (input.isEmpty)
                               return 'Enter Email';
                             return null;
                           },
@@ -131,8 +131,8 @@ class _LoginState extends State<Login> {
 
                       RaisedButton(
                         padding: const EdgeInsets.fromLTRB(70, 10, 70, 10),
-                        onPressed: login,
-                        child: const Text('LOGIN', style: TextStyle(
+                        onPressed: signUp,
+                        child: const Text('Sign Up', style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.brown

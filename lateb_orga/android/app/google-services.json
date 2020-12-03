@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "634765459426",
+    "firebase_url": "https://lateb-orga-3d66f.firebaseio.com",
+    "project_id": "lateb-orga-3d66f",
+    "storage_bucket": "lateb-orga-3d66f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634765459426:android:da437c44ff980a6c3683bb",
+        "android_client_info": {
+          "package_name": "com.example.lateb_orga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634765459426-91ulv9v0mfaoc4paqtgle6e7caailjeg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lateb_orga",
+            "certificate_hash": "7b8b6a60617c6417cf0b94ca61c673acdb660fe1"
+          }
+        },
+        {
+          "client_id": "634765459426-1ftt9npvb5cb82241ipaugddugelavhb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8pq39U7aWPjbyvweAGcffgkHsaKm-ucA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634765459426-1ftt9npvb5cb82241ipaugddugelavhb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
