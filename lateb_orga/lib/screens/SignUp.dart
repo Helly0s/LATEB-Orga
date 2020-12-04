@@ -142,6 +142,8 @@ class _SignUpState extends State<SignUp> {
                         ),
                         color: Colors.white,
                       ),
+
+                      const SizedBox(height: 300,)
                     ],
                   ),
                 ),

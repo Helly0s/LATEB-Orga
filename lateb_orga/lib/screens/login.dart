@@ -142,6 +142,8 @@ class _LoginState extends State<Login> {
                         ),
                         color: Colors.white,
                       ),
+
+                      const SizedBox(height: 300,)
                     ],
                   ),
                 ),
